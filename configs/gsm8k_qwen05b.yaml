@@ -1,0 +1,21 @@
+model_name: "Qwen/Qwen2-0.5B"
+use_qlora: true
+qlora_bits: 4
+group_size: 4
+num_baseline_rollouts: 2
+max_new_tokens: 192
+temperature: 0.9
+
+# Loss-pipeline hyperparameters. Strategy choices (baseline, is_weighting,
+# clipping, length_norm, std_norm, reward_assignment, ema_baseline) are passed
+# as CLI flags by the per-cell Makefile targets so a single config file backs
+# every cell (paper-GRPO baselines and the debiased model).
+clip_eps: 0.2          # PPO ratio bound for clipping=ppo_classical
+log_w_clamp: 5.0       # log-weight cap for full-sequence IS (debiased config)
+
+learning_rate: 1.0e-5
+batch_size: 4
+num_steps: 1000
+eval_every: 100
+max_train_samples: 1000
+seed: 42

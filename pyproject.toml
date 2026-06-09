@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "debiased-grpo"
+version = "0.1.0"
+description = "An (almost-)unbiased GRPO: independent pi_ref baseline, full-sequence importance sampling, group-level (fixed-constant) length normalization, and std-norm off — targeting GRPO's named bias sources, with two stated residual approximations (a log-weight clamp and a KL-from-behavior anchor)."
+requires-python = ">=3.11"
+dependencies = [
+    # Versions floored at the exact builds used to generate the reported
+    # results; `make install` pins them strictly via the CU124 PyTorch
+    # index (see Makefile). Floors here ensure a bare `pip install .` does
+    # not silently downgrade onto an untested combination.
+    "torch>=2.4.0",
+    "transformers>=4.44.0",
+    "trl>=0.10.1",
+    "bitsandbytes>=0.43.3",
+    "datasets",
+    "accelerate",
+    "peft",
+    "lightning",
+    "einops",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
